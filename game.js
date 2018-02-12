@@ -32,11 +32,11 @@ artImage.onload = function(){artReady = true;};
 
 var randomArtwork = function () {
   thumb = $.ajax({
-    url: ("https://hackathon.philamuseum.org/api/v0/collection/object?query=" + (Math.floor(Math.random() * (5000 - 1) + 1)) + "&api_token=OsuC8gmCvToQ3dTnOU9oPISnHWkRq9kYgbjOxNl9AvJP5yPZpMAELyn8zgo0&callback=?"),
+    url: ("https://hackathon.philamuseum.org/api/v0/collection/objectsOnView?limit=1&offset=" + (Math.floor(Math.random() * (5000 - 1) + 1)) + "&api_token=OsuC8gmCvToQ3dTnOU9oPISnHWkRq9kYgbjOxNl9AvJP5yPZpMAELyn8zgo0"),
     async: false,
     type: 'GET',
     success: function (data) {
-      return data.Thumbnail;
+      return data;
     },
     error: function () {
       setTimeout(function () {
@@ -45,7 +45,7 @@ var randomArtwork = function () {
       },500)
     }
   });
-  if (thumb.responseJSON) {return thumb.responseJSON.Thumbnail} else {randomArtwork();};
+  if (thumb) {return thumb["responseJSON"][0]["Thumbnail"]} else {randomArtwork();};
 }
 
 var reset = function () {
@@ -89,7 +89,7 @@ var update = function (modifier) {
 
 var drawScore = function (score) {
   ctx.fillStyle = "rgb(250, 250, 250)";
-  ctx.font = "32px Comic Sans MS";
+  ctx.font = "28px Comic Sans MS";
   ctx.textAlign = "left";
   ctx.textBaseline = "top";
   if (score < 15) {
