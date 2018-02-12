@@ -37,6 +37,12 @@ var randomArtwork = function () {
     type: 'GET',
     success: function (data) {
       return data.Thumbnail;
+    },
+    error: function () {
+      setTimeout(function () {
+        console.log("partying too hard, damn");
+        return randomArtwork();
+      },500)
     }
   });
   if (thumb.responseJSON) {return thumb.responseJSON.Thumbnail} else {randomArtwork();};
